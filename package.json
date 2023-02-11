@@ -1,0 +1,20 @@
+{
+  "name": "urlresolverfunction",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230115.0",
+    "@types/random-useragent": "^0.3.1",
+    "typescript": "^4.9.5",
+    "vitest": "^0.28.4",
+    "wrangler": "2.9.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "random-useragent": "^0.5.0"
+  }
+}
