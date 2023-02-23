@@ -8,7 +8,7 @@ export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		const url = new URL(request.url);
 		const apiToken = request.headers.get("Authorization");
-		const target = url.searchParams.get("target");
+		let target = url.searchParams.get("target");
 
 		if(!apiToken || !env.ACCEPTED_API_TOKENS || env.ACCEPTED_API_TOKENS.length < 1 || !env.ACCEPTED_API_TOKENS.split(" ").includes(apiToken.substring('Bearer '.length))) {
 			return new Response("Not Authenticated", {
@@ -20,6 +20,10 @@ export default {
 			return new Response("Invalid Request", {
 				status: 400,
 			});
+		}
+
+		if(!target.startsWith("https://") && !target.startsWith("http://")) {
+			target = `https://${target}`;
 		}
 
 		const response = await fetch(target, {
