@@ -1,4 +1,4 @@
-# cf-workers-url-forward-resolver
+# cf-workers-url-redirect-resolver
 A dead-simple cloudflare worker for resolving URL redirects.  
 It does not perform any caching or whatsoever.
 
