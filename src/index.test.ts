@@ -8,6 +8,9 @@ describe("Worker", () => {
 	beforeAll(async () => {
 		worker = await unstable_dev("src/index.ts", {
 			experimental: { disableExperimentalWarning: true },
+			vars: {
+				ACCEPTED_API_TOKENS: "justtesting"
+			}
 		});
 	});
 
@@ -15,11 +18,17 @@ describe("Worker", () => {
 		await worker.stop();
 	});
 
-	it("should return Hello World", async () => {
-		const resp = await worker.fetch();
+	it("should resolve the given amazon url", async () => {
+		const requestHeaders = {
+			'Authorization': 'Bearer justtesting'
+		};
+
+		const resp = await worker.fetch('?target=https://amzn.to', {headers: requestHeaders});
 		if (resp) {
-			const text = await resp.text();
-			expect(text).toMatchInlineSnapshot(`"Hello World!"`);
+			expect(resp.status).toBe(200);
+
+			const respData = await resp.json();
+			expect((respData as {url: string}).url).toStrictEqual("https://www.amazon.com/");
 		}
 	});
 });
