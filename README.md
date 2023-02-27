@@ -1,6 +1,7 @@
 # cf-workers-url-redirect-resolver
 A dead-simple cloudflare worker for resolving URL redirects.  
-It does not perform any caching or whatsoever.
+It does not perform any caching or whatsoever.  
+If the passed URL has no protocol, `https://` will be prepended.
 
 ## Setup
 Set the environment variable `ACCEPTED_API_TOKENS` to a list of accepted Bearer Tokens seperated by spaces.
