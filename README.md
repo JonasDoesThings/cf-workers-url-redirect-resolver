@@ -6,7 +6,7 @@ If the passed URL has no protocol, `https://` will be prepended.
 ## Setup
 Set the environment variable `ACCEPTED_API_TOKENS` to a list of accepted Bearer Tokens seperated by spaces.
 
-i.e. `ACCEPTED_API_TOKENS="token1 token2 token3"`
+e.g. `ACCEPTED_API_TOKENS="token1 token2 token3"`
 
 ### Dev
 Run the project locally using `yarn start --local --var ACCEPTED_API_TOKENS:justtesting`
