@@ -16,6 +16,13 @@ export default {
 			});
 		}
 
+		let cache = caches.default;
+		const cachedResponse = await cache.match(request);
+
+		if(cachedResponse) {
+			return cachedResponse;
+		}
+
 		if(!target || target.trim().length < 3) {
 			return new Response("Invalid Request", {
 				status: 400,
@@ -34,10 +41,13 @@ export default {
 			},
 		});
 
-		return new Response(JSON.stringify({url: response.url}), {
+		const httpResponse = new Response(JSON.stringify({url: response.url}), {
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
+
+		await cache.put(request, httpResponse);
+		return httpResponse;
 	},
 };
