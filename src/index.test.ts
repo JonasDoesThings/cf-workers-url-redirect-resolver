@@ -30,5 +30,13 @@ describe("Worker", () => {
 			const respData = await resp.json();
 			expect((respData as {url: string}).url).toStrictEqual("https://www.amazon.com/");
 		}
+
+		const resp2 = await worker.fetch('?target=https://amzn.to', {headers: requestHeaders});
+		if (resp2) {
+			expect(resp2.status).toBe(200);
+
+			const respData = await resp2.json();
+			expect((respData as {url: string}).url).toStrictEqual("https://www.amazon.com/");
+		}
 	});
 });
