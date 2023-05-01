@@ -47,7 +47,7 @@ export default {
 			}
 		});
 
-		await cache.put(request, httpResponse);
+		await cache.put(request, httpResponse.clone());
 		return httpResponse;
 	},
 };
