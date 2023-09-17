@@ -5,49 +5,49 @@ export interface Env {
 }
 
 export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		const url = new URL(request.url);
-		const apiToken = request.headers.get("Authorization");
-		let target = url.searchParams.get("target");
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url);
+    const apiToken = request.headers.get('Authorization');
+    let target = url.searchParams.get('target');
 
-		if(!apiToken || !env.ACCEPTED_API_TOKENS || env.ACCEPTED_API_TOKENS.length < 1 || !env.ACCEPTED_API_TOKENS.split(" ").includes(apiToken.substring('Bearer '.length))) {
-			return new Response("Not Authenticated", {
-				status: 401,
-			});
-		}
+    if(!apiToken || !env.ACCEPTED_API_TOKENS || env.ACCEPTED_API_TOKENS.length < 1 || !env.ACCEPTED_API_TOKENS.split(' ').includes(apiToken.substring('Bearer '.length))) {
+      return new Response('Not Authenticated', {
+        status: 401,
+      });
+    }
 
-		let cache = caches.default;
-		const cachedResponse = await cache.match(request);
+    const cache = caches.default;
+    const cachedResponse = await cache.match(request);
 
-		if(cachedResponse) {
-			return cachedResponse;
-		}
+    if(cachedResponse) {
+      return cachedResponse;
+    }
 
-		if(!target || target.trim().length < 3) {
-			return new Response("Invalid Request", {
-				status: 400,
-			});
-		}
+    if(!target || target.trim().length < 3) {
+      return new Response('Invalid Request', {
+        status: 400,
+      });
+    }
 
-		if(!target.startsWith("https://") && !target.startsWith("http://")) {
-			target = `https://${target}`;
-		}
+    if(!target.startsWith('https://') && !target.startsWith('http://')) {
+      target = `https://${target}`;
+    }
 
-		const response = await fetch(target, {
-			method: 'GET',
-			redirect: 'follow',
-			headers: {
-				'User-Agent': getRandomUserAgent(),
-			},
-		});
+    const response = await fetch(target, {
+      method: 'GET',
+      redirect: 'follow',
+      headers: {
+        'User-Agent': getRandomUserAgent(),
+      },
+    });
 
-		const httpResponse = new Response(JSON.stringify({url: response.url}), {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
+    const httpResponse = new Response(JSON.stringify({url: response.url}), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-		await cache.put(request, httpResponse.clone());
-		return httpResponse;
-	},
+    await cache.put(request, httpResponse.clone());
+    return httpResponse;
+  },
 };
