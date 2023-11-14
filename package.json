@@ -2,14 +2,14 @@
   "name": "urlresolverfunction",
   "version": "0.0.0",
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230821.0",
-    "@types/random-useragent": "^0.3.1",
-    "@typescript-eslint/eslint-plugin": "^6.7.0",
-    "@typescript-eslint/parser": "^6.7.0",
-    "eslint": "^8.49.0",
+    "@cloudflare/workers-types": "^4.20231025.0",
+    "@types/random-useragent": "^0.3.3",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "eslint": "^8.53.0",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.3",
-    "wrangler": "3.6.0"
+    "vitest": "^0.34.6",
+    "wrangler": "3.15.0"
   },
   "private": true,
   "scripts": {
