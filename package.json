@@ -14,7 +14,7 @@
   "private": true,
   "scripts": {
     "start": "wrangler dev",
-    "deploy": "wrangler publish",
+    "deploy": "wrangler deploy",
     "test": "vitest"
   },
   "dependencies": {
