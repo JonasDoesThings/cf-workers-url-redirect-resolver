@@ -173,3 +173,4 @@ dist
 .idea/
 *.iml
 .wrangler/
+.DS_Store
